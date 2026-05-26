@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>力恆 ♥ 珮珊 婚宴桌次查詢</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Noto+Serif+TC:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:       #faf3e7;
+      --cream-soft:  #f4ead8;
+      --ivory:       #fffaf0;
+      --beige:       #d8c4a3;
+      --beige-deep:  #b89e76;
+      --blush:       #e6b7a3;
+      --blush-deep:  #c98870;
+      --sage:        #a9b59a;
+      --sage-deep:   #7d8c6f;
+      --ink:         #5b4a37;
+      --ink-soft:    #8a755a;
+      --ink-faint:   rgba(91, 74, 55, 0.45);
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      font-family: 'Noto Serif TC', serif;
+      background: var(--cream);
+      color: var(--ink);
+    }
+
+    /* ── Soft cream base wash ── */
+    .bg {
+      position: fixed; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse at 50% 45%, #ffffff 0%, var(--cream) 55%, var(--cream-soft) 100%);
+    }
+
+    /* ── Floral page backdrop ── */
+    .venue-bg {
+      position: fixed; inset: 0; z-index: 0;
+      background-image: url('background.webp');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      pointer-events: none;
+    }
+    @media (max-aspect-ratio: 9/16) and (pointer: coarse) {
+      .venue-bg {
+        background-image: url('background-mobile.webp');
+      }
+    }
+
+    /* ── Subtle watercolor heart in the middle (background) ── */
+    .heart-bg {
+      position: fixed;
+      top: 50%; left: 50%;
+      width: clamp(340px, 50vw, 620px);
+      height: clamp(340px, 50vw, 620px);
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.3;
+      filter: blur(1px);
+      transform-origin: 50% 50%;
+      animation: heartbeat-bg 1.6s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat-bg {
+      0%   { transform: translate(-50%, -50%) rotate(-8deg) scale(1); }
+      14%  { transform: translate(-50%, -50%) rotate(-8deg) scale(1.06); }
+      28%  { transform: translate(-50%, -50%) rotate(-8deg) scale(1); }
+      42%  { transform: translate(-50%, -50%) rotate(-8deg) scale(1.04); }
+      70%, 100% { transform: translate(-50%, -50%) rotate(-8deg) scale(1); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .heart-bg { animation: none; }
+    }
+
+    /* ── Floating carrots ── */
+    .carrots {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .carrot {
+      position: absolute;
+      width: 110px;
+      height: auto;
+      opacity: 0.55;
+      will-change: transform;
+      filter: drop-shadow(0 3px 6px rgba(120, 80, 50, 0.15));
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+    }
+    .carrot.drift-a { animation-name: carrot-drift-a; }
+    .carrot.drift-b { animation-name: carrot-drift-b; }
+    .carrot.drift-c { animation-name: carrot-drift-c; }
+    .carrot.drift-d { animation-name: carrot-drift-d; }
+
+    @keyframes carrot-drift-a {
+      0%   { transform: translate(0, 0) rotate(var(--rot, 0deg)); }
+      20%  { transform: translate(90px, -60px) rotate(calc(var(--rot, 0deg) + 18deg)); }
+      40%  { transform: translate(40px, -150px) rotate(calc(var(--rot, 0deg) - 12deg)); }
+      60%  { transform: translate(-80px, -110px) rotate(calc(var(--rot, 0deg) + 22deg)); }
+      80%  { transform: translate(-60px, -30px) rotate(calc(var(--rot, 0deg) - 8deg)); }
+      100% { transform: translate(0, 0) rotate(var(--rot, 0deg)); }
+    }
+    @keyframes carrot-drift-b {
+      0%   { transform: translate(0, 0) rotate(var(--rot, 0deg)); }
+      25%  { transform: translate(-120px, 40px) rotate(calc(var(--rot, 0deg) - 20deg)); }
+      50%  { transform: translate(-70px, 130px) rotate(calc(var(--rot, 0deg) + 14deg)); }
+      75%  { transform: translate(60px, 80px) rotate(calc(var(--rot, 0deg) - 6deg)); }
+      100% { transform: translate(0, 0) rotate(var(--rot, 0deg)); }
+    }
+    @keyframes carrot-drift-c {
+      0%   { transform: translate(0, 0) rotate(var(--rot, 0deg)); }
+      30%  { transform: translate(70px, 90px) rotate(calc(var(--rot, 0deg) + 25deg)); }
+      55%  { transform: translate(140px, -20px) rotate(calc(var(--rot, 0deg) - 18deg)); }
+      80%  { transform: translate(30px, -90px) rotate(calc(var(--rot, 0deg) + 10deg)); }
+      100% { transform: translate(0, 0) rotate(var(--rot, 0deg)); }
+    }
+    @keyframes carrot-drift-d {
+      0%   { transform: translate(0, 0) rotate(var(--rot, 0deg)); }
+      22%  { transform: translate(-50px, -100px) rotate(calc(var(--rot, 0deg) + 16deg)); }
+      48%  { transform: translate(80px, -70px) rotate(calc(var(--rot, 0deg) - 22deg)); }
+      72%  { transform: translate(110px, 60px) rotate(calc(var(--rot, 0deg) + 8deg)); }
+      100% { transform: translate(0, 0) rotate(var(--rot, 0deg)); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .carrot { animation: none; }
+    }
+
+    /* Soft cream paper grain */
+    .bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(230,183,163,0.10) 0, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(169,181,154,0.08) 0, transparent 40%),
+        radial-gradient(circle at 60% 20%, rgba(216,196,163,0.10) 0, transparent 35%);
+      mix-blend-mode: multiply;
+    }
+
+    /* ── Screen base ── */
+    .screen {
+      position: fixed; inset: 0; z-index: 10;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 0 14vw;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    @media (max-aspect-ratio: 1/1) {
+      .screen { padding: 0 12vw; }
+    }
+    .screen.active {
+      opacity: 1; transform: translateY(0); pointer-events: all;
+    }
+    .screen.exit-up {
+      opacity: 0; transform: translateY(-40px);
+    }
+    .screen.enter-down {
+      opacity: 0; transform: translateY(40px);
+    }
+
+    /* ── Title ── */
+    .title-wrap { text-align: center; margin-bottom: 42px; }
+
+    .title-en {
+      font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(1.1rem, 2.6vw, 1.6rem);
+      color: var(--blush-deep);
+      letter-spacing: 0.32em;
+      opacity: 0.85;
+      text-transform: lowercase;
+    }
+
+    .title-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: clamp(2.2rem, 5.5vw, 3.4rem);
+      font-weight: 500;
+      color: var(--ink);
+      letter-spacing: 0.12em;
+      margin: 10px 0 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+    }
+
+    .title-zh .name { color: var(--ink); }
+
+    .title-zh .heart {
+      color: var(--blush-deep);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 0.85em;
+      transform: translateY(-0.05em);
+      opacity: 0.85;
+    }
+
+    .title-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+      color: var(--sage-deep);
+      letter-spacing: 0.45em;
+      font-weight: 400;
+      margin-top: 4px;
+    }
+
+    .divider {
+      display: flex; align-items: center; gap: 14px;
+      margin: 18px auto 8px; width: fit-content;
+      color: var(--beige-deep);
+    }
+    .divider::before, .divider::after {
+      content: '';
+      display: block;
+      width: 70px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--beige-deep));
+    }
+    .divider::after { transform: scaleX(-1); }
+    .divider-icon {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      opacity: 0.85;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── Input area ── */
+    .input-wrap {
+      position: relative;
+      width: clamp(260px, 56vw, 460px);
+    }
+
+    .input-label {
+      display: block;
+      font-family: 'Cormorant Garamond', 'Noto Serif TC', serif;
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      color: var(--ink-soft);
+      letter-spacing: 0.3em;
+      margin-bottom: 18px;
+      text-align: center;
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    .search-box {
+      width: 100%;
+      padding: 16px 28px;
+      font-size: clamp(1.3rem, 3.6vw, 1.8rem);
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 400;
+      background: rgba(255, 250, 240, 0.7);
+      border: none;
+      border-bottom: 1.5px solid var(--beige-deep);
+      border-radius: 0;
+      color: var(--ink);
+      text-align: center;
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+      caret-color: var(--blush-deep);
+      letter-spacing: 0.06em;
+    }
+    .search-box::placeholder {
+      color: var(--ink-faint);
+      font-style: italic;
+      letter-spacing: 0.15em;
+    }
+    .search-box:focus {
+      border-bottom-color: var(--blush-deep);
+      box-shadow: 0 6px 18px -10px rgba(201, 136, 112, 0.45);
+      background: rgba(255, 250, 240, 0.95);
+    }
+
+    .search-hint {
+      text-align: center;
+      margin-top: 22px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(0.85rem, 1.8vw, 1rem);
+      color: var(--ink-faint);
+      letter-spacing: 0.2em;
+    }
+    .search-hint .sep {
+      display: inline-block;
+      margin: 0 10px;
+      color: var(--beige-deep);
+    }
+
+    /* ── Progress bar (debounce indicator) ── */
+    .progress-wrap {
+      position: absolute;
+      bottom: -2px; left: 0; right: 0;
+      height: 2px;
+      background: transparent;
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .progress-wrap.active { opacity: 1; }
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--blush), var(--blush-deep), var(--sage));
+      width: 0%;
+      transition: width linear;
+    }
+
+    /* ── Result screen ── */
+    /* ── Result screen — full-bleed shell ── */
+    #resultScreen {
+      padding: 0;
+      justify-content: stretch;
+      align-items: stretch;
+    }
+
+    .result-shell {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      padding: clamp(12px, 2vh, 24px) clamp(14px, 3vw, 36px);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ── Venue zone: laid out from the start, opacity fades in during morph ── */
+    .venue-zone {
+      width: 100%;
+      flex: 1 1 0;
+      min-height: 0;     /* allow flex item to shrink below SVG intrinsic size */
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.9s ease 0.4s;
+    }
+    .result-shell.morphing .venue-zone { opacity: 1; }
+    .venue-zone svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    /* ── Hero overlay (covers shell, centers initially, shrinks to table) ── */
+    .hero {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 5;
+      gap: clamp(14px, 2vh, 26px);
+    }
+
+    .hero-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      transition: opacity 0.5s ease,
+                  transform 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+    .result-shell.morphing .hero-info {
+      opacity: 0;
+      transform: translateY(-18px);
+    }
+    .hero-eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(0.9rem, 1.5vh, 1.1rem);
+      color: var(--sage-deep);
+      letter-spacing: 0.4em;
+      text-transform: lowercase;
+    }
+    .hero-name {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 500;
+      font-size: clamp(2rem, 5vh, 3rem);
+      color: var(--ink);
+      letter-spacing: 0.14em;
+      line-height: 1.1;
+    }
+
+    /* The morphing circle — only this element animates position+scale */
+    .hero-circle {
+      width: clamp(180px, 28vh, 280px);
+      height: clamp(180px, 28vh, 280px);
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #fffaf0, #f4ead8 70%, #e8d6b6 100%);
+      box-shadow:
+        0 18px 40px -18px rgba(91, 74, 55, 0.35),
+        inset 0 0 0 1.5px rgba(184, 158, 118, 0.45),
+        inset 0 -10px 28px rgba(216, 196, 163, 0.25);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      transform-origin: center center;
+      transform: translate(0, 0) scale(1);
+      transition: transform 1.1s cubic-bezier(0.65, 0, 0.35, 1),
+                  opacity 0.4s ease,
+                  box-shadow 1.1s ease;
+    }
+    .hero-circle::before {
+      content: '';
+      position: absolute; inset: 7px;
+      border-radius: 50%;
+      border: 1px dashed rgba(184, 158, 118, 0.55);
+      pointer-events: none;
+    }
+    .result-shell.morphing .hero-circle {
+      transform: translate(var(--tx, 0), var(--ty, 0)) scale(var(--s, 0.15));
+      box-shadow: 0 0 0 0 transparent;
+    }
+    .result-shell.morphed .hero-circle {
+      opacity: 0;
+    }
+
+    .hero-num {
+      font-family: 'Playfair Display', 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: clamp(5rem, 16vh, 9rem);
+      line-height: 1;
+      color: var(--blush-deep);
+      text-shadow: 0 2px 0 rgba(255,255,255,0.7);
+    }
+
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(0.85rem, 1.5vh, 1rem);
+      color: var(--ink-soft);
+      letter-spacing: 0.28em;
+      transition: opacity 0.5s ease, transform 0.7s ease;
+    }
+    .result-shell.morphing .hero-sub {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    /* ── Footer (countdown + return) ── */
+    .reveal-foot {
+      width: 100%;
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(18px, 3vw, 36px);
+      padding-top: clamp(6px, 1vh, 14px);
+      opacity: 0;
+      transition: opacity 0.5s ease 0.7s;
+    }
+    .result-shell.morphing .reveal-foot { opacity: 1; }
+    .reveal-foot .countdown-wrap { margin-top: 0; }
+    .reveal-foot .btn-home { margin: 0; padding: 7px 26px; font-size: 0.9rem; }
+
+    /* Portrait / narrow */
+    @media (max-aspect-ratio: 4/5), (max-width: 640px) {
+      .hero-circle {
+        width: clamp(150px, 22vh, 220px);
+        height: clamp(150px, 22vh, 220px);
+      }
+      .hero-num { font-size: clamp(4rem, 13vh, 7rem); }
+      .hero-name { font-size: clamp(1.6rem, 4vh, 2.4rem); }
+    }
+
+    /* Venue elements */
+    .v-table-circle { fill: #fffaf0; stroke: #b89e76; stroke-width: 1.2; }
+    .v-table-num { font-family: 'Noto Serif TC', serif; font-size: 14px; fill: #5b4a37; text-anchor: middle; dominant-baseline: central; font-weight: 500; }
+    .v-room-outline { fill: none; stroke: #b89e76; stroke-width: 1; stroke-dasharray: 3 3; }
+    .v-stage-box { fill: #fffaf0; stroke: #5b4a37; stroke-width: 1.2; }
+    .v-stage-label { font-family: 'Noto Serif TC', serif; font-weight: 700; font-size: 16px; fill: #8a3a2a; text-anchor: middle; dominant-baseline: central; letter-spacing: 0.1em; }
+    .v-screen { fill: #c0392b; }
+    .v-screen-label { font-family: 'Noto Serif TC', serif; font-size: 9px; fill: #fffaf0; text-anchor: middle; dominant-baseline: central; font-weight: 500; }
+    .v-carpet { fill: url(#carpetGrad); }
+    .v-entrance-label { font-family: 'Noto Serif TC', serif; font-size: 11px; fill: #5b4a37; text-anchor: middle; dominant-baseline: central; letter-spacing: 0.2em; }
+    .v-main { fill: #fffaf0; stroke: #5b4a37; stroke-width: 1.5; }
+    .v-main-label { font-family: 'Noto Serif TC', serif; font-size: 13px; fill: #5b4a37; text-anchor: middle; dominant-baseline: central; font-weight: 500; }
+    .v-main-highlight {
+      fill: #c98870;
+      stroke: #8a3a2a;
+      stroke-width: 1.8;
+      filter: drop-shadow(0 0 14px rgba(201, 136, 112, 0.75));
+    }
+    .v-main-highlight + .v-main-label { fill: #fffaf0; font-weight: 700; }
+
+    /* Highlighted table — visible only after morph arrives */
+    .v-highlight-pulse {
+      fill: #c98870;
+      opacity: 0;
+      transform-origin: center;
+      transform-box: fill-box;
+    }
+    .result-shell.morphed .v-highlight-pulse {
+      animation: vPulse 1.6s ease-out infinite;
+    }
+    @keyframes vPulse {
+      0%   { transform: scale(0.95); opacity: 0.55; }
+      80%  { transform: scale(1.8); opacity: 0; }
+      100% { transform: scale(1.8); opacity: 0; }
+    }
+    .v-table-highlight {
+      fill: #c98870;
+      stroke: #8a3a2a;
+      stroke-width: 1.8;
+      filter: drop-shadow(0 0 10px rgba(201, 136, 112, 0.7));
+    }
+    .v-table-highlight + .v-table-num { fill: #fffaf0; font-weight: 700; }
+
+    /* ── Countdown ring ── */
+    .countdown-wrap {
+      margin-top: 28px;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+
+    .countdown-ring {
+      width: 36px; height: 36px;
+      position: relative;
+    }
+
+    .countdown-ring svg { transform: rotate(-90deg); }
+
+    .countdown-ring circle {
+      fill: none;
+      stroke: rgba(184, 158, 118, 0.25);
+      stroke-width: 2.5;
+    }
+    .countdown-ring .progress-circle {
+      stroke: var(--blush-deep);
+      stroke-dasharray: 88;
+      stroke-dashoffset: 0;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 1s linear;
+    }
+
+    .countdown-num {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem;
+      color: var(--blush-deep);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+    }
+
+    .countdown-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      letter-spacing: 0.18em;
+    }
+
+    .btn-home {
+      margin-top: 22px;
+      padding: 11px 36px;
+      border: 1px solid var(--beige-deep);
+      border-radius: 0;
+      background: transparent;
+      color: var(--ink-soft);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      letter-spacing: 0.25em;
+      cursor: pointer;
+      transition: all 0.25s;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .btn-home:hover {
+      background: rgba(230, 183, 163, 0.18);
+      color: var(--blush-deep);
+      border-color: var(--blush-deep);
+    }
+
+    /* ── Not Found screen ── */
+    .notfound-card {
+      text-align: center;
+      padding: 8px 0;
+    }
+
+    .notfound-icon {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 2.4rem;
+      margin-bottom: 18px;
+      color: var(--sage-deep);
+      letter-spacing: 0.1em;
+    }
+
+    .notfound-name {
+      font-family: 'Noto Serif TC', serif;
+      font-size: clamp(1.4rem, 3.8vw, 2.2rem);
+      color: var(--ink);
+      margin-bottom: 14px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+    }
+
+    .notfound-msg {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      color: var(--ink-soft);
+      letter-spacing: 0.2em;
+      font-weight: 400;
+    }
+
+    .notfound-assist {
+      margin-top: 18px;
+      font-family: 'Noto Serif TC', serif;
+      font-size: clamp(1rem, 2.6vw, 1.25rem);
+      color: var(--blush-deep);
+      letter-spacing: 0.14em;
+      font-weight: 400;
+    }
+
+    .btn-retry {
+      margin-top: 30px;
+      padding: 11px 36px;
+      border: 1px solid var(--beige-deep);
+      border-radius: 0;
+      background: transparent;
+      color: var(--ink-soft);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      letter-spacing: 0.25em;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+    .btn-retry:hover {
+      background: rgba(230, 183, 163, 0.18);
+      color: var(--blush-deep);
+      border-color: var(--blush-deep);
+    }
+
+    /* ── Mobile (portrait phones): map secondary, hero always-on ── */
+    @media (max-width: 640px) {
+      .screen { padding: 0 6vw; }
+
+      .title-wrap { margin-bottom: 26px; }
+      .divider::before, .divider::after { width: 48px; }
+
+      .input-wrap { width: 88vw; }
+      .search-box { padding: 14px 18px; }
+      .search-hint { margin-top: 16px; }
+
+      /* Stacked result layout: hero on top, small map below */
+      #resultScreen { padding: 0; }
+      .result-shell {
+        padding: 16px 14px 12px;
+        justify-content: flex-start;
+        gap: 12px;
+      }
+
+      /* Hero becomes part of the flow (not an overlay) */
+      .hero {
+        position: relative;
+        inset: auto;
+        order: 1;
+        flex: 0 0 auto;
+        gap: 10px;
+        margin-top: 4px;
+      }
+      .hero-info { gap: 4px; }
+      .hero-circle {
+        width: clamp(150px, 42vw, 200px);
+        height: clamp(150px, 42vw, 200px);
+      }
+      .hero-num { font-size: clamp(3.6rem, 16vw, 5.5rem); }
+      .hero-name { font-size: clamp(1.5rem, 6vw, 2rem); }
+      .hero-eyebrow { font-size: 0.85rem; }
+      .hero-sub { font-size: 0.85rem; }
+
+      /* Disable the morph animation on mobile — keep everything visible */
+      .result-shell.morphing .hero-info,
+      .result-shell.morphing .hero-sub {
+        opacity: 1;
+        transform: none;
+      }
+      .result-shell.morphing .hero-circle,
+      .result-shell.morphed .hero-circle {
+        transform: none;
+        opacity: 1;
+        box-shadow:
+          0 18px 40px -18px rgba(91, 74, 55, 0.35),
+          inset 0 0 0 1.5px rgba(184, 158, 118, 0.45),
+          inset 0 -10px 28px rgba(216, 196, 163, 0.25);
+      }
+
+      /* Venue map: small reference, always visible, with pulse on highlight */
+      .venue-zone {
+        order: 2;
+        flex: 1 1 auto;
+        opacity: 1;
+        min-height: 0;
+        max-height: 38vh;
+        margin-top: 4px;
+      }
+      .v-highlight-pulse {
+        animation: vPulse 1.6s ease-out infinite;
+      }
+
+      /* Footer always visible */
+      .reveal-foot {
+        order: 3;
+        opacity: 1;
+        padding-top: 4px;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+      .btn-home, .btn-retry { padding: 9px 24px; font-size: 0.9rem; }
+
+      /* No auto-return on mobile — hide countdown ring, keep return button */
+      .countdown-wrap { display: none; }
+      .btn-retry { margin-top: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="venue-bg"></div>
+
+  <!-- ── Watercolor heart in the background ── -->
+  <svg class="heart-bg" viewBox="0 0 200 200" aria-hidden="true">
+    <defs>
+      <radialGradient id="heartGrad" cx="50%" cy="45%" r="55%">
+        <stop offset="0%"  stop-color="#c47557" stop-opacity="0.80"/>
+        <stop offset="55%" stop-color="#c98870" stop-opacity="0.50"/>
+        <stop offset="100%" stop-color="#c98870" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <path
+      d="M100 166 C 40 126, 15 91, 30 61 C 42 36, 75 34, 100 66 C 125 34, 158 36, 170 61 C 185 91, 160 126, 100 166 Z"
+      fill="url(#heartGrad)"
+    />
+  </svg>
+
+  <!-- ── Floating carrots ── -->
+  <div class="carrots" aria-hidden="true">
+    <img class="carrot drift-a" src="carrot.png" alt="" style="top: 14%; left:  6%; width: 100px; --rot: -18deg; animation-duration: 22s; animation-delay: -3s;">
+    <img class="carrot drift-c" src="carrot.png" alt="" style="top: 22%; left: 80%; width: 130px; --rot:  28deg; animation-duration: 26s; animation-delay: -9s;">
+    <img class="carrot drift-b" src="carrot.png" alt="" style="top: 72%; left: 12%; width: 115px; --rot:  40deg; animation-duration: 24s; animation-delay: -6s;">
+    <img class="carrot drift-a" src="carrot.png" alt="" style="top:  4%; left: 52%; width:  85px; --rot: 165deg; animation-duration: 30s; animation-delay: -15s;">
+  </div>
+
+  <!-- ── Input Screen ── -->
+  <div class="screen active" id="inputScreen">
+    <div class="title-wrap">
+      <div class="title-en">our wedding day</div>
+      <div class="title-zh">
+        <span class="name">力恆</span>
+        <span class="heart">&amp;</span>
+        <span class="name">珮珊</span>
+      </div>
+      <div class="divider"><span class="divider-icon">Jousha&nbsp;·&nbsp;Peggy</span></div>
+      <div class="title-sub">Seating Inquiry</div>
+    </div>
+
+    <div class="input-wrap">
+      <label class="input-label" for="searchInput">— please say your name —</label>
+      <input
+        class="search-box"
+        id="searchInput"
+        type="text"
+        placeholder="您的姓名"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <div class="progress-wrap" id="progressWrap">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </div>
+    <div class="search-hint">語音輸入自動查詢<span class="sep">·</span>鍵盤輸入請按 Enter</div>
+  </div>
+
+  <!-- ── Result Screen ── -->
+  <div class="screen" id="resultScreen">
+    <div class="result-shell" id="resultShell">
+
+      <!-- venue map (laid out from start; fades in during morph) -->
+      <section class="venue-zone" id="venueZone">
+        <svg viewBox="0 0 600 820" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="carpetGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%"   stop-color="#8a1f15"/>
+              <stop offset="50%"  stop-color="#c0392b"/>
+              <stop offset="100%" stop-color="#8a1f15"/>
+            </linearGradient>
+          </defs>
+          <!-- room outline -->
+          <rect class="v-room-outline" x="40" y="30" width="520" height="760" rx="4"/>
+
+          <!-- top projection screen -->
+          <rect class="v-screen" x="210" y="60" width="180" height="10"/>
+          <text class="v-screen-label" x="300" y="50">投影螢幕</text>
+
+          <!-- stage -->
+          <rect class="v-stage-box" x="200" y="78" width="200" height="80"/>
+          <text class="v-stage-label" x="300" y="118">舞 台</text>
+
+          <!-- main table -->
+          <circle id="mainTableCircle" class="v-main" cx="300" cy="215" r="42" data-table="主"/>
+          <text class="v-main-label" x="300" y="215">主桌</text>
+
+          <!-- red carpet aisle -->
+          <rect class="v-carpet" x="282" y="262" width="36" height="448" rx="2"/>
+
+          <!-- entrance -->
+          <text class="v-entrance-label" x="300" y="775">入　口</text>
+          <rect class="v-screen" x="95" y="745" width="120" height="8"/>
+          <text class="v-screen-label" x="155" y="760">投影螢幕</text>
+          <rect class="v-screen" x="385" y="745" width="120" height="8"/>
+          <text class="v-screen-label" x="445" y="760">投影螢幕</text>
+
+          <!-- tables — group will be populated by JS -->
+          <g id="venueTables"></g>
+        </svg>
+      </section>
+
+      <!-- hero overlay: big circle with name + table number, morphs to target table -->
+      <div class="hero" id="hero">
+        <div class="hero-info">
+          <div class="hero-eyebrow">welcome</div>
+          <div class="hero-name" id="resultName">—</div>
+        </div>
+        <div class="hero-circle" id="heroCircle">
+          <span class="hero-num" id="tableNumber">—</span>
+        </div>
+        <div class="hero-sub">— your table —</div>
+      </div>
+
+      <footer class="reveal-foot">
+        <div class="countdown-wrap">
+          <div class="countdown-ring">
+            <svg viewBox="0 0 36 36" width="36" height="36">
+              <circle cx="18" cy="18" r="14"/>
+              <circle class="progress-circle" id="countdownCircle" cx="18" cy="18" r="14"/>
+            </svg>
+            <div class="countdown-num" id="countdownNum">3</div>
+          </div>
+          <div class="countdown-text">秒後自動返回</div>
+        </div>
+        <button class="btn-home" id="homeBtn">return</button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- ── Not Found Screen ── -->
+  <div class="screen" id="notFoundScreen">
+    <div class="notfound-card">
+      <div class="notfound-icon">— with love —</div>
+      <div class="notfound-name" id="notFoundName">—</div>
+      <div class="notfound-msg">查無此姓名</div>
+      <div class="notfound-assist">請稍等，招待人員將協助您</div>
+      <div class="countdown-wrap">
+        <div class="countdown-ring">
+          <svg viewBox="0 0 36 36" width="36" height="36">
+            <circle cx="18" cy="18" r="14"/>
+            <circle class="progress-circle" id="notFoundCircle" cx="18" cy="18" r="14"/>
+          </svg>
+          <div class="countdown-num" id="notFoundNum">2</div>
+        </div>
+        <div class="countdown-text">秒後自動返回</div>
+      </div>
+      <button class="btn-retry" id="retryBtn">try again</button>
+    </div>
+  </div>
+
+  <script>
+    // ── Seating Data ──────────────────────────────────────────────
+    // Format: { "姓名": 桌次 }
+    const SEATING = {
+      // ─ 主桌 ─
+      "陳力恆": "主", "史珮珊": "主", "王道玥": "主", "王道瓊": "主", "王道琦": "主",
+      "孔慶鑫": "主", "卓玉蘭": "主", "王道瑋": "主", "鄧仁榮": "主", "蒯惠芳": "主", "蒯惠琴": "主", "葉叔叔": "主",
+
+      // ─ 桌 1：力恆親友 ─
+      "邱思嘉": 1, "邱思婷": 1, "鄧華婷": 1, "鄧友豪": 1, "莊翔甯": 1,
+      "王戴偉": 1, "王紹瑜": 1, "王紹瑾": 1, "王本立": 1, "王子諒": 1,
+
+      // ─ 桌 2：力恆親友 / 教會家人-成人部 ─
+      "孔繁菱": 2, "林宗慶": 2, "林秉諄": 2, "孔繁瑜": 2, "黃祥恩": 2,
+      "黃品綸": 2, "黃苡茞": 2, "周逸凡傳道": 2, "曾郁婷傳道": 2, "周詠昕": 2,
+
+      // ─ 桌 3：力恆親友 / 教會家人-成人部 / 力恆家人 ─
+      "義翔爸爸": 3, "義翔媽媽": 3, "陳怡葦": 3, "陳煥新": 3, "鄭麗玲": 3,
+      "虞必彰": 3, "李秋雲": 3, "張銘仁": 3, "徐嘉寧": 3, "林政輝": 3,
+
+      // ─ 桌 4：教會家人-成人部 ─
+      "顔惠祥": 4, "黃鳳英": 4, "胡慶鐳": 4, "鄭士麟": 4, "鄭徐玉治": 4,
+      "陳嬉妙": 4, "馬貴蘭": 4, "李良達牧師": 4, "朱曉鳳": 4, "汪麗玲": 4, "林道山": 4,
+
+      // ─ 桌 5：珮珊媽媽朋友 ─
+      "吳平": 5, "劉淑宜": 5, "余剖麟": 5, "吳岳雄": 5, "許碧灑": 5,
+      "邱瑜穎": 5, "洪雅珍": 5, "王淑菲": 5, "康哲瑋": 5, "康雅茹": 5, "沈莉娜": 5,
+
+      // ─ 桌 6：珮珊媽媽朋友 ─
+      "梁鈺琪": 6, "黃月娥": 6, "黃敏": 6, "黃素琴": 6, "彭健翔": 6,
+      "蔡政道": 6, "蔡太太(鐵柱)": 6, "楊明杰": 6, "徐富慧": 6, "游雅玲": 6, "黃高鋒": 6,
+
+      // ─ 桌 7：珮珊媽媽朋友 / 國小老師 ─
+      "黃昕樂（嬰兒）": 7, "王小桃": 7, "趙貴華": 7, "夏忠傑": 7, "陳坤忠": 7,
+      "楊美芬": 7, "陳芷榆": 7, "陳又瑄": 7, "蘇玉端": 7, "吳明岳": 7, "林宜欣": 7,
+
+      // ─ 桌 8：珮珊媽媽朋友 ─
+      "汪志榮": 8, "李秀娟 Jenny": 8, "李冠翰": 8, "葉錦池": 8, "許建明": 8,
+      "陳淑芬": 8, "張慧雯": 8, "林芙美": 8, "張榮洲": 8, "嘉敏": 8, "嘉玲": 8,
+
+      // ─ 桌 9：珮珊家人 / 珮珊哥哥朋友 ─
+      "史漢瑜": 9, "王品雅": 9, "柯秉承": 9, "翁芷瑩": 9, "郭晉誠": 9,
+      "張嘉玲": 9, "王嘉志": 9, "魏宏安": 9, "吳偉正": 9, "蕭濟穎": 9,
+
+      // ─ 桌 10：力恆媽媽朋友（牧者界）─
+      "沈招治牧師": 10, "吳侊嶧牧師": 10, "吳劉怡岑師母": 10, "王振亞牧師": 10, "雷淑貞師母": 10,
+      "李惠師母": 10, "曹植茗牧師": 10, "莊育萍師母": 10, "瓦特牧師": 10, "白萍師母": 10,
+
+      // ─ 桌 11：力恆大學同學 / 力恆衝浪朋友 / 珮珊同事 ─
+      "楊學義": 11, "龔建中": 11, "詹子德": 11, "Tiffany": 11, "朱婉華": 11,
+      "李瑋芸": 11, "蔡育芳": 11, "葉家瑜": 11, "王睿之": 11, "林星聿": 11, "張政驊": 11,
+
+      // ─ 桌 12：力恆大學啦啦隊友 / 教會家人-青年部 ─
+      "蔡英昌": 12, "羅熙婕": 12, "劉冠婷": 12, "蔡欣容": 12, "劉學毅": 12,
+      "向祐陞": 12, "朱柏叡": 12, "郭宗翰": 12, "曾俊銘": 12, "鄭姸婕": 12,
+
+      // ─ 桌 13：力恆珮珊國小同學 / 教會家人-青年部 / 珮珊大學同學 ─
+      "黃軍堡": 13, "高家榕": 13, "蔡寅傑": 13, "張耘華": 13, "陳奕旻": 13,
+      "尹韻茹": 13, "李光偉": 13, "杜珊綺": 13, "謝蓉萱": 13, "魏婕琳": 13,
+
+      // ─ 桌 14：力恆高中同學 / 珮珊高中同學 / 教會家人-成人部 ─
+      "高銘志": 14, "王沛騰": 14, "許博凱": 14, "王辰浩": 14, "牛婕安": 14,
+      "李佳芸": 14, "黃如霜": 14, "楊雅淳": 14, "許瑜明": 14, "吳艾庭": 14,
+
+      // ─ 桌 15：教會家人-青年部 / 有氧 ─
+      "姚佳妤": 15, "吳克駿": 15, "陳洳萱": 15, "楊子萱": 15, "葉松霖": 15,
+      "莊珺茹": 15, "周亞蒨": 15, "廖心平": 15, "葉俊良": 15, "黃鈺絜": 15,
+
+      // ─ 桌 16：教會家人-成人部 ─
+      "黃秀梅": 16, "李惠君": 16, "林麗芬": 16, "蕭富道": 16, "紀采妙": 16,
+      "蕭逸": 16, "曹又方": 16, "楊淑惠": 16, "舒慧玉": 16, "方思鳳": 16,
+
+      // ─ 桌 17：教會家人-成人部 / 教會家人-兒童部 ─
+      "陳夢婷": 17, "余信東": 17, "魏郁珈": 17, "董鈺澍": 17, "江直育": 17,
+      "舒麗娟": 17, "吳有鈞": 17, "夏菉廷": 17, "吳悠": 17, "吳葎": 17, "吳翩（幼兒）": 17,
+
+      // ─ 桌 18：教會家人-成人部 / 教會家人-兒童部 ─
+      "林宣伶": 18, "吳允欣": 18, "沈雅蕙": 18, "甘憲平": 18, "鄭雅芳": 18,
+      "劉于甄": 18, "李宜坪": 18,
+
+      // ─ 桌 19：教會家人-成人部 / 教會家人-兒童部 ─
+      "程惠平": 19, "呂敏雲": 19, "丁羿薫": 19, "李沅融": 19, "謝玟淇": 19,
+      "楊彤恩": 19, "楊穎安": 19, "李佩珠": 19, "劉語凡": 19, "江素謹": 19,
+
+      // ─ 桌 20：教會家人-成人部 / 教會家人-青年部 ─
+      "張資涵": 20, "何杰修": 20, "陳博凱": 20, "莊子瑩": 20, "郭正弘": 20,
+      "林凱明": 20, "蕭彤": 20, "俞如芳": 20, "杜彥斌": 20, "董冠宏": 20,
+
+      // ─ 桌 21：教會家人-青年部 ─
+      "張尚恩": 21, "呂政龍": 21, "呂映萱": 21, "詹益甯": 21, "郭佩妮": 21,
+      "沈冠亦": 21, "陳文祈": 21, "楊采璇": 21, "吳育仁": 21, "蘇昱弘": 21,
+
+      // ─ 桌 22：教會家人-青年部 ─
+      "邱凱綸": 22, "林又嘉": 22, "高崇恩": 22, "王心于": 22, "黃立安": 22,
+      "康家瑀": 22, "林亞柔": 22, "林庠語": 22, "林彥錚": 22, "金聿珊傳道": 22,
+
+      // ─ 桌 23：教會家人-青年部 / 教會家人-成人部 ─
+      "呂乃崴": 23, "崔子奕": 23, "涂峰源": 23, "梁世宣": 23, "張子翔": 23,
+      "呂乃源": 23, "高嘉彣": 23, "張子恩": 23, "胡安綺": 23, "林青蓉": 23,
+
+      // ─ 桌 24：教會家人-成人部 / 教會家人-青年部 ─
+      "郭鴻鈞": 24, "江謀詣": 24, "陳湯茹": 24, "許順傑": 24, "唐菡蔆": 24,
+      "李和嶸": 24, "齊星皓": 24, "陳春弘傳道": 24, "劉怡秀": 24, "簡介壽": 24,
+
+      // ─ 桌 25：教會家人-青年部 ─
+      "陳以樂": 25, "陳以真": 25, "李玄胤": 25, "莊心妤": 25, "龐尹茜": 25,
+      "林恩霈": 25, "劉芯妤": 25, "梁以宣": 25, "吳詠潔": 25,
+
+      // ─ 桌 26：教會家人-青年部 / 力恆同事 / 教會家人-成人部 ─
+      "謝宗倫": 26, "謝宗育": 26, "虞學紘": 26, "黃塏寒": 26, "紀曉喆": 26,
+      "王宸潁": 26, "郭靜詩傳道": 26, "梁忠豪": 26,
+    };
+
+    // Build lookup: remove spaces + lower for fuzzy match
+    function normalize(s) {
+      return s.replace(/\s+/g, '').toLowerCase();
+    }
+
+    const normalizedKeys = Object.keys(SEATING).map(k => ({ original: k, norm: normalize(k) }));
+
+    function lookup(query) {
+      const q = normalize(query);
+      if (!q) return null;
+      // 1. exact normalized match
+      let hit = normalizedKeys.find(k => k.norm === q);
+      if (hit) return { name: hit.original, table: SEATING[hit.original] };
+      // 2. contains match
+      hit = normalizedKeys.find(k => k.norm.includes(q) || q.includes(k.norm));
+      if (hit) return { name: hit.original, table: SEATING[hit.original] };
+      // 3. partial char match (any 2+ chars)
+      if (q.length >= 2) {
+        hit = normalizedKeys.find(k => {
+          for (let i = 0; i <= q.length - 2; i++) {
+            if (k.norm.includes(q.slice(i, i + 2))) return true;
+          }
+          return false;
+        });
+        if (hit) return { name: hit.original, table: SEATING[hit.original] };
+      }
+      return null;
+    }
+
+    // ── DOM refs ──────────────────────────────────────────────────
+    const inputScreen    = document.getElementById('inputScreen');
+    const resultScreen   = document.getElementById('resultScreen');
+    const notFoundScreen = document.getElementById('notFoundScreen');
+    const searchInput    = document.getElementById('searchInput');
+    const resultName     = document.getElementById('resultName');
+    const tableNumber    = document.getElementById('tableNumber');
+    const countdownCircle = document.getElementById('countdownCircle');
+    const countdownNum   = document.getElementById('countdownNum');
+    const notFoundCircle = document.getElementById('notFoundCircle');
+    const notFoundNum    = document.getElementById('notFoundNum');
+    const notFoundName   = document.getElementById('notFoundName');
+    const retryBtn       = document.getElementById('retryBtn');
+    const homeBtn        = document.getElementById('homeBtn');
+    const progressWrap   = document.getElementById('progressWrap');
+    const progressBar    = document.getElementById('progressBar');
+    const resultShell    = document.getElementById('resultShell');
+    const heroCircle     = document.getElementById('heroCircle');
+    const venueTables    = document.getElementById('venueTables');
+
+    // ── Venue table positions (matches the floor plan) ────────────
+    // viewBox: 0 0 600 820
+    const TABLE_POS = {
+      // right column (top-down): 19, 20, then two-column 13-18 / 21-26
+      19: { x: 465, y: 270 },
+      20: { x: 465, y: 326 },
+      13: { x: 395, y: 382 }, 21: { x: 465, y: 382 },
+      14: { x: 395, y: 438 }, 22: { x: 465, y: 438 },
+      15: { x: 395, y: 494 }, 23: { x: 465, y: 494 },
+      16: { x: 395, y: 550 }, 24: { x: 465, y: 550 },
+      17: { x: 395, y: 606 }, 25: { x: 465, y: 606 },
+      18: { x: 395, y: 662 }, 26: { x: 465, y: 662 },
+      // left top group (closer to the red carpet)
+       1: { x: 155, y: 295 },  7: { x: 225, y: 295 },
+       2: { x: 155, y: 355 },  8: { x: 225, y: 355 },
+       3: { x: 155, y: 415 },  9: { x: 225, y: 415 },
+       4: { x: 155, y: 475 }, 10: { x: 225, y: 475 },
+      // left bottom group (small gap above)
+       5: { x: 155, y: 565 }, 11: { x: 225, y: 565 },
+       6: { x: 155, y: 625 }, 12: { x: 225, y: 625 },
+    };
+    const TABLE_RADIUS = 22;
+
+    // Render all tables once (highlight applied per-result)
+    function renderVenueTables(highlightNum) {
+      const svgNS = 'http://www.w3.org/2000/svg';
+      venueTables.innerHTML = '';
+      // 主桌是 SVG 內靜態元素，只在被選中時補一個 pulse ring
+      const mainCircle = document.getElementById('mainTableCircle');
+      if (mainCircle) {
+        if (String(highlightNum) === '主') {
+          const pulse = document.createElementNS(svgNS, 'circle');
+          pulse.setAttribute('class', 'v-highlight-pulse');
+          pulse.setAttribute('cx', 300);
+          pulse.setAttribute('cy', 215);
+          pulse.setAttribute('r', 42);
+          venueTables.appendChild(pulse);
+          mainCircle.classList.add('v-main-highlight');
+        } else {
+          mainCircle.classList.remove('v-main-highlight');
+        }
+      }
+      Object.entries(TABLE_POS).forEach(([num, pos]) => {
+        const isHl = String(num) === String(highlightNum);
+        if (isHl) {
+          // pulse ring (rendered behind the circle)
+          const pulse = document.createElementNS(svgNS, 'circle');
+          pulse.setAttribute('class', 'v-highlight-pulse');
+          pulse.setAttribute('cx', pos.x);
+          pulse.setAttribute('cy', pos.y);
+          pulse.setAttribute('r', TABLE_RADIUS);
+          venueTables.appendChild(pulse);
+        }
+        const c = document.createElementNS(svgNS, 'circle');
+        c.setAttribute('class', isHl ? 'v-table-highlight' : 'v-table-circle');
+        c.setAttribute('cx', pos.x);
+        c.setAttribute('cy', pos.y);
+        c.setAttribute('r', TABLE_RADIUS);
+        c.setAttribute('data-table', num);
+        venueTables.appendChild(c);
+        const t = document.createElementNS(svgNS, 'text');
+        t.setAttribute('class', 'v-table-num');
+        t.setAttribute('x', pos.x);
+        t.setAttribute('y', pos.y);
+        t.textContent = num;
+        venueTables.appendChild(t);
+      });
+    }
+
+    // ── Screen transitions ────────────────────────────────────────
+    function showScreen(target) {
+      [inputScreen, resultScreen, notFoundScreen].forEach(s => {
+        if (s === target) {
+          s.classList.remove('exit-up', 'enter-down');
+          s.classList.add('active');
+        } else if (s.classList.contains('active')) {
+          s.classList.remove('active');
+          s.classList.add('exit-up');
+          setTimeout(() => s.classList.remove('exit-up'), 700);
+        }
+      });
+    }
+
+    // ── Mobile detection (matches the CSS breakpoint) ─────────────
+    const mobileMQ = window.matchMedia('(max-width: 640px)');
+    function isMobileViewport() { return mobileMQ.matches; }
+
+    // ── Countdown logic ───────────────────────────────────────────
+    const CIRCUMFERENCE = 2 * Math.PI * 14; // r=14 → ~87.96
+    const COUNTDOWN_TOTAL = 6;
+    let countdownTimer = null;
+    let countdownSec = COUNTDOWN_TOTAL;
+    let notFoundTimer = null;
+
+    function startCountdown() {
+      clearTimeout(countdownTimer);
+      countdownSec = COUNTDOWN_TOTAL;
+      updateRing(countdownSec);
+
+      function tick() {
+        countdownSec--;
+        updateRing(countdownSec);
+        if (countdownSec <= 0) {
+          returnToInput();
+        } else {
+          countdownTimer = setTimeout(tick, 1000);
+        }
+      }
+      countdownTimer = setTimeout(tick, 1000);
+    }
+
+    function updateRing(sec) {
+      const fraction = sec / COUNTDOWN_TOTAL;
+      countdownCircle.style.strokeDashoffset = CIRCUMFERENCE * (1 - fraction);
+      countdownNum.textContent = sec;
+    }
+
+    const NOTFOUND_TOTAL = 2;
+    let notFoundSec = NOTFOUND_TOTAL;
+
+    function startNotFoundCountdown() {
+      clearTimeout(notFoundTimer);
+      notFoundSec = NOTFOUND_TOTAL;
+      updateNotFoundRing(notFoundSec);
+
+      function tick() {
+        notFoundSec--;
+        updateNotFoundRing(notFoundSec);
+        if (notFoundSec <= 0) {
+          returnToInput();
+        } else {
+          notFoundTimer = setTimeout(tick, 1000);
+        }
+      }
+      notFoundTimer = setTimeout(tick, 1000);
+    }
+
+    function updateNotFoundRing(sec) {
+      const fraction = sec / NOTFOUND_TOTAL;
+      notFoundCircle.style.strokeDashoffset = CIRCUMFERENCE * (1 - fraction);
+      notFoundNum.textContent = sec;
+    }
+
+    function returnToInput() {
+      clearTimeout(countdownTimer);
+      clearTimeout(notFoundTimer);
+      clearTimeout(morphTimer);
+      clearTimeout(morphedTimer);
+      resultShell.classList.remove('morphing', 'morphed');
+      // reset hero transform vars so next entrance starts clean
+      heroCircle.style.removeProperty('--tx');
+      heroCircle.style.removeProperty('--ty');
+      heroCircle.style.removeProperty('--s');
+      showScreen(inputScreen);
+      setTimeout(() => {
+        searchInput.value = '';
+        searchInput.focus();
+      }, 400);
+    }
+
+    let morphTimer = null;
+    let morphedTimer = null;
+    const MORPH_DELAY = 2200;  // how long the big circle stays centered
+    const MORPH_DUR   = 1100;  // matches CSS transition duration
+
+    function scheduleMorph(tableNum) {
+      clearTimeout(morphTimer);
+      clearTimeout(morphedTimer);
+
+      // wait two frames so layout (venue SVG) is fully measured
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const target = document.querySelector(`#venueZone circle[data-table="${tableNum}"]`);
+          if (!target) {
+            // no position on map — just fade venue in without morph
+            resultShell.classList.add('morphing', 'morphed');
+            return;
+          }
+          const hRect = heroCircle.getBoundingClientRect();
+          const tRect = target.getBoundingClientRect();
+          const dx = (tRect.left + tRect.width / 2) - (hRect.left + hRect.width / 2);
+          const dy = (tRect.top  + tRect.height / 2) - (hRect.top  + hRect.height / 2);
+          const scale = tRect.width / hRect.width;
+
+          heroCircle.style.setProperty('--tx', `${dx}px`);
+          heroCircle.style.setProperty('--ty', `${dy}px`);
+          heroCircle.style.setProperty('--s', scale.toFixed(4));
+
+          morphTimer = setTimeout(() => {
+            resultShell.classList.add('morphing');
+            morphedTimer = setTimeout(() => {
+              resultShell.classList.add('morphed');
+            }, MORPH_DUR);
+          }, MORPH_DELAY);
+        });
+      });
+    }
+
+    // ── Search submission ─────────────────────────────────────────
+    function doSearch(query) {
+      query = query.trim();
+      if (!query) return;
+
+      progressWrap.classList.remove('active');
+      progressBar.style.transition = 'none';
+      progressBar.style.width = '0%';
+
+      const result = lookup(query);
+      if (result) {
+        resultName.textContent = result.name;
+        tableNumber.textContent = result.table;
+        countdownCircle.style.strokeDashoffset = 0;
+        renderVenueTables(result.table);
+        resultShell.classList.remove('morphing', 'morphed');
+        // reset transform so the entrance animation replays
+        heroCircle.style.removeProperty('--tx');
+        heroCircle.style.removeProperty('--ty');
+        heroCircle.style.removeProperty('--s');
+        showScreen(resultScreen);
+        scheduleMorph(result.table);
+        if (!isMobileViewport()) startCountdown();
+      } else {
+        notFoundName.textContent = `「${query}」`;
+        notFoundCircle.style.strokeDashoffset = 0;
+        showScreen(notFoundScreen);
+        if (!isMobileViewport()) startNotFoundCountdown();
+      }
+    }
+
+    // ── Input source detection (keyboard vs voice-AI injection) ───
+    // Keyboard typing → keydown fires before input. Voice tools (Typeless等)
+    // 直接寫入 value，不會觸發 keydown。我們用 keydown 的時間戳判斷來源。
+    // 鍵盤 → 不自動送出（按 Enter 才送）
+    // 語音 → 自動送出（短 debounce 等同一段語音整批寫入完成）
+    const KEY_RECENT_MS  = 150;   // input 事件前多久內有 keydown 算「鍵盤輸入」
+    const VOICE_DEBOUNCE = 350;   // 語音整批寫入後等待一小段確保結束才送出
+
+    let lastKeydownAt = 0;
+    let isComposing   = false;    // IME 中文組字中
+    let voiceTimer    = null;
+
+    searchInput.addEventListener('keydown', () => {
+      lastKeydownAt = Date.now();
+    });
+
+    searchInput.addEventListener('compositionstart', () => { isComposing = true; });
+    searchInput.addEventListener('compositionend',   () => {
+      isComposing = false;
+      // IME 組字完成本身也是鍵盤輸入，記一筆時間戳避免被誤判成語音
+      lastKeydownAt = Date.now();
+    });
+
+    searchInput.addEventListener('input', (e) => {
+      const val = searchInput.value.trim();
+
+      clearTimeout(voiceTimer);
+      progressWrap.classList.remove('active');
+      progressBar.style.transition = 'none';
+      progressBar.style.width = '0%';
+
+      if (!val || isComposing) return;
+
+      const sinceKey  = Date.now() - lastKeydownAt;
+      const fromPaste = e.inputType === 'insertFromPaste';
+      const fromVoice = e.inputType === 'insertFromDictation';
+      // 判定為「非鍵盤」：明確 paste/dictation，或最近沒有 keydown
+      const isInjected = fromPaste || fromVoice || sinceKey > KEY_RECENT_MS;
+
+      if (!isInjected) return;  // 鍵盤輸入 → 不自動送出
+
+      // 語音/注入：顯示進度條並在短 debounce 後送出
+      progressWrap.classList.add('active');
+      progressBar.style.transition = 'none';
+      progressBar.style.width = '0%';
+      void progressBar.offsetWidth;
+      progressBar.style.transition = `width ${VOICE_DEBOUNCE}ms linear`;
+      progressBar.style.width = '100%';
+
+      voiceTimer = setTimeout(() => {
+        doSearch(searchInput.value);
+      }, VOICE_DEBOUNCE);
+    });
+
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter') return;
+      // IME 注音/中文組字中按 Enter 是選字，不該送出
+      // 同時檢查事件層級的 isComposing 與 keyCode 229（部分瀏覽器在
+      // compositionend 之後仍會把這個 Enter 視為組字結束鍵）
+      if (isComposing || e.isComposing || e.keyCode === 229) return;
+      clearTimeout(voiceTimer);
+      doSearch(searchInput.value);
+    });
+
+    retryBtn.addEventListener('click', returnToInput);
+    homeBtn.addEventListener('click', returnToInput);
+
+    // ── Init ──────────────────────────────────────────────────────
+    setTimeout(() => searchInput.focus(), 300);
+  </script>
+</body>
+</html>
